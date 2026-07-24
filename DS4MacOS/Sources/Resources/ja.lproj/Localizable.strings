@@ -37,6 +37,20 @@
 "settings.panel.model" = "モデルファイルを選択 (.gguf)";
 "settings.panel.kv_dir" = "KV キャッシュディレクトリを選択";
 
+/* Settings - Context */
+"settings.label.max_tokens" = "デフォルト最大出力トークン数";
+"settings.hint.max_tokens" = "クライアントが上限を指定しない場合に適用。空欄でエンジンのデフォルト";
+
+/* Settings - DSpark speculative decoding */
+"settings.group.dspark" = "投機的デコード（DSpark）";
+"settings.checkbox.dspark" = "DSpark 投機的デコードを有効にする";
+"settings.desc.dspark" = "小型サポートモデルでトークンを下書きし、貪欲法リクエスト（temperature 0）を高速化します。DSpark サポート用 GGUF（約 5.6 GB）が必要です。低メモリモードとは併用できません。";
+"settings.label.dspark_model" = "サポートモデル";
+"settings.placeholder.dspark_model" = "DSpark サポートファイル未選択 — 「選択…」をクリック";
+"settings.label.dspark_confidence" = "信頼度しきい値";
+"settings.hint.dspark_confidence" = "0–1。空欄でデフォルト (0.9)";
+"settings.panel.dspark_model" = "DSpark サポートファイルを選択 (.gguf)";
+
 /* LogWindowController */
 "log.window.title" = "DS4 Server ログ";
 
