@@ -23,6 +23,10 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
     private var ssdCacheField: NSTextField!
     private var threadsField: NSTextField!
     private var prefillChunkField: NSTextField!
+    private var dsparkCheck: NSButton!
+    private var dsparkPathField: NSTextField!
+    private var dsparkConfidenceField: NSTextField!
+    private var maxTokensField: NSTextField!
 
     // Storage tab
     private var diskKVCheck: NSButton!
@@ -33,7 +37,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
 
     init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: W, height: 500),
+            contentRect: NSRect(x: 0, y: 0, width: W, height: 700),
             styleMask: [.titled, .closable],
             backing: .buffered,
             defer: false
@@ -190,7 +194,14 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
                              hint: nil)
         let ctxNote = makeNote(L("settings.hint.ctx"))
         noThinkCheck = makeCheckbox(L("settings.checkbox.nothink_short"))
-        let ctxStack = vstack([ctxRow, ctxNote, noThinkCheck], spacing: 8)
+
+        maxTokensField = makeField(placeholder: "393216")
+        maxTokensField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([maxTokensField.widthAnchor.constraint(equalToConstant: 100)])
+        let tokensRow = formRow(label: L("settings.label.max_tokens"),
+                                control: maxTokensField,
+                                hint: L("settings.hint.max_tokens"))
+        let ctxStack = vstack([ctxRow, ctxNote, tokensRow, noThinkCheck], spacing: 8)
         ctxBox.contentView?.addSubview(ctxStack)
         pin(ctxStack, to: ctxBox.contentView!, insets: NSEdgeInsets(top: 8, left: 12, bottom: 12, right: 12))
 
@@ -223,6 +234,8 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         // SSD Streaming group
         let ssdBox = makeSection(title: L("settings.group.ssd"))
         ssdStreamingCheck = makeCheckbox(L("settings.checkbox.ssd_short"))
+        ssdStreamingCheck.target = self
+        ssdStreamingCheck.action = #selector(ssdToggled)
         let ssdNote = makeNote(L("settings.desc.ssd"))
 
         ssdCacheField = makeField(placeholder: L("settings.placeholder.ssd_cache"))
@@ -252,7 +265,40 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         ssdBox.contentView?.addSubview(ssdStack)
         pin(ssdStack, to: ssdBox.contentView!, insets: NSEdgeInsets(top: 8, left: 12, bottom: 12, right: 12))
 
-        let outer = vstack([ctxBox, gpuBox, ssdBox], spacing: 12)
+        // DSpark speculative decoding group
+        let dsparkBox = makeSection(title: L("settings.group.dspark"))
+        dsparkCheck = makeCheckbox(L("settings.checkbox.dspark"))
+        dsparkCheck.target = self
+        dsparkCheck.action = #selector(dsparkToggled)
+        let dsparkNote = makeNote(L("settings.desc.dspark"))
+
+        dsparkPathField = makeField(placeholder: L("settings.placeholder.dspark_model"))
+        let dsparkBrowseBtn = NSButton(title: L("settings.button.browse"),
+                                       target: self, action: #selector(browseDSparkClicked))
+        dsparkBrowseBtn.bezelStyle = .rounded
+        dsparkBrowseBtn.translatesAutoresizingMaskIntoConstraints = false
+        dsparkBrowseBtn.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        dsparkPathField.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        let dsparkPathRow = NSStackView(views: [dsparkPathField, dsparkBrowseBtn])
+        dsparkPathRow.orientation = .horizontal
+        dsparkPathRow.spacing = 8
+        dsparkPathRow.translatesAutoresizingMaskIntoConstraints = false
+        let dsparkModelRow = formRow(label: L("settings.label.dspark_model"),
+                                     control: dsparkPathRow,
+                                     hint: nil)
+
+        dsparkConfidenceField = makeField(placeholder: "0.9")
+        dsparkConfidenceField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([dsparkConfidenceField.widthAnchor.constraint(equalToConstant: 80)])
+        let confidenceRow = formRow(label: L("settings.label.dspark_confidence"),
+                                    control: dsparkConfidenceField,
+                                    hint: L("settings.hint.dspark_confidence"))
+
+        let dsparkStack = vstack([dsparkCheck, dsparkNote, dsparkModelRow, confidenceRow], spacing: 8)
+        dsparkBox.contentView?.addSubview(dsparkStack)
+        pin(dsparkStack, to: dsparkBox.contentView!, insets: NSEdgeInsets(top: 8, left: 12, bottom: 12, right: 12))
+
+        let outer = vstack([ctxBox, gpuBox, ssdBox, dsparkBox], spacing: 12)
         container.addSubview(outer)
         pin(outer, to: container, insets: NSEdgeInsets(top: 16, left: 16, bottom: 16, right: 16))
 
@@ -425,6 +471,13 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         ssdCacheField.stringValue     = s.ssdStreamingCacheGB > 0 ? String(s.ssdStreamingCacheGB) : ""
         threadsField.stringValue      = s.threads > 0 ? String(s.threads) : ""
         prefillChunkField.stringValue = s.prefillChunk > 0 ? String(s.prefillChunk) : ""
+        dsparkCheck.state             = s.enableDSpark ? .on : .off
+        dsparkPathField.stringValue   = s.dsparkModelPath
+        dsparkConfidenceField.stringValue = s.dsparkConfidence == 0.9 ? "" : String(s.dsparkConfidence)
+        maxTokensField.stringValue    = s.defaultMaxTokens > 0 ? String(s.defaultMaxTokens) : ""
+        if ssdStreamingCheck.state == .on && dsparkCheck.state == .on {
+            dsparkCheck.state = .off   // SSD streaming wins; matches buildServerArgs precedence
+        }
         diskKVCheck.state             = s.enableDiskKV ? .on : .off
         kvDirField.stringValue        = s.kvDiskDir
         kvSizeField.stringValue       = String(s.kvDiskSpaceMB)
@@ -443,6 +496,10 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         s.ssdStreamingCacheGB = Int(ssdCacheField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
         s.threads             = Int(threadsField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
         s.prefillChunk        = Int(prefillChunkField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
+        s.enableDSpark        = dsparkCheck.state == .on
+        s.dsparkModelPath     = dsparkPathField.stringValue.trimmingCharacters(in: .whitespaces)
+        s.dsparkConfidence    = Double(dsparkConfidenceField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0.9
+        s.defaultMaxTokens    = Int(maxTokensField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
         s.enableDiskKV        = diskKVCheck.state == .on
         s.kvDiskDir           = kvDirField.stringValue.trimmingCharacters(in: .whitespaces)
         s.kvDiskSpaceMB       = Int(kvSizeField.stringValue) ?? 8192
@@ -467,6 +524,24 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.canCreateDirectories = true
         guard panel.runModal() == .OK, let url = panel.url else { return }
         kvDirField.stringValue = url.path
+    }
+
+    @objc private func browseDSparkClicked() {
+        let panel = NSOpenPanel()
+        panel.title = L("settings.panel.dspark_model")
+        panel.canChooseFiles = true; panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        dsparkPathField.stringValue = url.path
+    }
+
+    // DSpark and SSD streaming are mutually exclusive (engine refuses --mtp + --ssd-streaming)
+    @objc private func dsparkToggled() {
+        if dsparkCheck.state == .on { ssdStreamingCheck.state = .off }
+    }
+
+    @objc private func ssdToggled() {
+        if ssdStreamingCheck.state == .on { dsparkCheck.state = .off }
     }
 
     @objc private func powerChanged() {

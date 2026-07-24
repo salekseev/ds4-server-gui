@@ -27,6 +27,7 @@
 "settings.group.context" = "Context & Thinking";
 "settings.group.gpu" = "GPU Power Limit";
 "settings.group.ssd" = "Memory Saving";
+"settings.group.dspark" = "Speculative Decoding (DSpark)";
 "settings.group.kv" = "Session Cache (Disk KV)";
 "settings.group.info" = "About Session Cache";
 
@@ -34,15 +35,19 @@
 "settings.label.port" = "Port";
 "settings.label.host" = "Bind Address";
 "settings.label.ctx_short" = "Max Context Length";
+"settings.label.max_tokens" = "Default Max Output Tokens";
 "settings.label.kv_cache" = "Cache Folder";
 "settings.label.kv_size_short" = "Max Cache Size";
 "settings.label.ssd_cache_short" = "Hot Model Cache";
+"settings.label.dspark_model" = "Support Model";
+"settings.label.dspark_confidence" = "Confidence";
 "settings.label.advanced" = "Advanced:";
 
 /* Settings - Descriptions */
 "settings.desc.model" = "Select the .gguf model file to load at startup.";
 "settings.desc.power" = "Limit GPU usage to reduce heat and fan noise. Lower = cooler but slower.";
-"settings.desc.ssd" = "Loads model weights from SSD on demand. Uses far less RAM, but may be slower.";
+"settings.desc.ssd" = "Loads model weights from SSD on demand. Uses far less RAM, but may be slower. Incompatible with DSpark speculative decoding.";
+"settings.desc.dspark" = "Speeds up greedy requests (temperature 0) by drafting tokens with a small support model. Requires the DSpark support GGUF (~5.6 GB). Incompatible with Low-memory mode.";
 "settings.desc.kv" = "Saves conversation context to disk so the server can resume sessions faster.";
 
 /* Settings - Hints */
@@ -51,7 +56,9 @@
 "settings.hint.launch_at_login" = "Automatically start DS4 Server when you log in.";
 "settings.hint.launch_at_login_unsupported" = "Requires a Developer ID signature. Not available in this build.";
 "settings.hint.ctx" = "Longer context uses more memory. Default: 32768 tokens (~25,000 words).";
+"settings.hint.max_tokens" = "Used when clients omit a limit. Blank = engine default";
 "settings.hint.ssd_cache" = "GB to keep hot. Leave blank for auto.";
+"settings.hint.dspark_confidence" = "0–1. Blank = default (0.9)";
 "settings.hint.kv_size" = "MB on disk. Default: 8192 MB (8 GB)";
 "settings.hint.kv_path" = "Leave blank to use the default location (~/.ds4/kvcache).";
 
@@ -59,6 +66,7 @@
 "settings.placeholder.model" = "No model selected — click Browse…";
 "settings.placeholder.kv_dir" = "Default: ~/.ds4/kvcache";
 "settings.placeholder.ssd_cache" = "auto";
+"settings.placeholder.dspark_model" = "No DSpark support file — click Browse…";
 
 /* Settings - Checkboxes */
 "settings.checkbox.cors_short" = "Allow browser access (CORS)";
@@ -68,6 +76,7 @@
 "settings.checkbox.disk_kv_short" = "Enable session cache (recommended)";
 "settings.checkbox.ssd_short" = "Low-memory mode — stream model from SSD";
 "settings.checkbox.ssd_streaming" = "Enable SSD Streaming (saves GPU memory, slower)";
+"settings.checkbox.dspark" = "Enable DSpark speculative decoding";
 
 /* Settings - Buttons */
 "settings.button.browse" = "Browse…";
@@ -75,6 +84,7 @@
 "settings.button.cancel" = "Cancel";
 "settings.panel.model" = "Select Model File (.gguf)";
 "settings.panel.kv_dir" = "Select Session Cache Directory";
+"settings.panel.dspark_model" = "Select DSpark Support File (.gguf)";
 
 /* Settings - Info */
 "settings.info.kv" = "Session cache stores your conversation history on disk. When you start a new conversation with the same context, the server can skip re-reading the prompt and respond faster.";
