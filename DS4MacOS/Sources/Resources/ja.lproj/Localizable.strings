@@ -56,3 +56,4 @@
 "server.error.metal_missing" = "Metal シェーダーリソースディレクトリが見つかりません";
 "server.error.unexpected_exit" = "サーバーが予期せず終了しました (code=%d)";
 "server.error.start_failed" = "起動に失敗しました (code=%d)";
+"server.error.dspark_invalid" = "DSpark サポートモデルファイルが無効または見つかりません：%@";

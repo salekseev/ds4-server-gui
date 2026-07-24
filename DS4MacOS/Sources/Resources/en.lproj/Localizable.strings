@@ -98,3 +98,4 @@
 "server.error.metal_missing" = "Metal shader resources not found";
 "server.error.unexpected_exit" = "Server exited unexpectedly (code=%d)";
 "server.error.start_failed" = "Start failed (code=%d)";
+"server.error.dspark_invalid" = "DSpark support model file invalid or not found: %@";

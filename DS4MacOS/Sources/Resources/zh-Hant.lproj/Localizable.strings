@@ -74,3 +74,4 @@
 "server.error.metal_missing" = "找不到 Metal shader 资源目录";
 "server.error.unexpected_exit" = "伺服器意外結束 (code=%d)";
 "server.error.start_failed" = "啟動失败 (code=%d)";
+"server.error.dspark_invalid" = "DSpark 支援模型檔案無效或不存在：%@";
