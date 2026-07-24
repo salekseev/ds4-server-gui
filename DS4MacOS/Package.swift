@@ -9,32 +9,33 @@ let package = Package(
         .executable(name: "DS4MacOS", targets: ["DS4MacOS"])
     ],
     targets: [
-        // C/ObjC 引擎：编译 ds4-server 的所有源文件
+        // C/ObjC engine: pristine upstream (submodule) + local embed wrapper
         .target(
             name: "ds4engine",
-            path: "ds4-engine/Sources/ds4engine",
-            exclude: [
-                // 不需要的文件
-            ],
+            path: "ds4-engine",
             sources: [
-                "ds4.c",
-                "ds4_ssd.c",
-                "ds4_distributed.c",
-                "ds4_metal.m",
-                "ds4_server.c",
-                "ds4_help.c",
-                "ds4_kvstore.c",
-                "rax.c",
+                "embed/ds4_server_embed.c",
+                "upstream/ds4.c",
+                "upstream/ds4_ssd.c",
+                "upstream/ds4_distributed.c",
+                "upstream/ds4_metal.m",
+                "upstream/ds4_help.c",
+                "upstream/ds4_kvstore.c",
+                "upstream/rax.c",
+                "upstream/ds4_layer_pack.c",
+                "upstream/ds4_tp.c",
+                "upstream/ds4_gpu_args.c",
             ],
             resources: [
-                .copy("metal"),
+                .copy("upstream/metal"),
             ],
-            publicHeadersPath: "include",
+            publicHeadersPath: "embed/include",
             cSettings: [
                 .define("DS4_SERVER_TEST_NO_MAIN"),
+                .headerSearchPath("upstream"),
                 .unsafeFlags([
                     "-O3", "-ffast-math", "-mcpu=native",
-                    "-Wall", "-Wextra", "-std=c99",
+                    "-Wall", "-Wextra", "-std=gnu99",
                     "-Wno-unused-parameter", "-Wno-unused-variable",
                     "-Wno-sign-compare",
                 ]),
