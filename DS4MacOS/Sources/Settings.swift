@@ -47,6 +47,10 @@ final class Settings {
         static let ssdStreamingCacheGB  = "ssdStreamingCacheGB"
         static let threads              = "threads"
         static let prefillChunk         = "prefillChunk"
+        static let enableDSpark         = "enableDSpark"
+        static let dsparkModelPath      = "dsparkModelPath"
+        static let dsparkConfidence     = "dsparkConfidence"
+        static let defaultMaxTokens     = "defaultMaxTokens"
     }
 
     var modelPath: String {
@@ -124,5 +128,35 @@ final class Settings {
     var prefillChunk: Int {
         get { defaults.integer(forKey: Key.prefillChunk) }
         set { defaults.set(max(0, newValue), forKey: Key.prefillChunk) }
+    }
+
+    // MARK: - DSpark speculative decoding
+
+    /// Enable --dspark (requires dsparkModelPath; incompatible with SSD streaming).
+    var enableDSpark: Bool {
+        get { defaults.bool(forKey: Key.enableDSpark) }
+        set { defaults.set(newValue, forKey: Key.enableDSpark) }
+    }
+
+    /// Draft/MTP support model file used by DSpark speculative decoding, passed via --mtp.
+    var dsparkModelPath: String {
+        get { defaults.string(forKey: Key.dsparkModelPath) ?? "" }
+        set { defaults.set(newValue, forKey: Key.dsparkModelPath) }
+    }
+
+    /// --dspark-confidence threshold, clamped to 0...1. Unset reads as the
+    /// engine default 0.9; an explicit 0 is preserved (engine diagnostics mode).
+    var dsparkConfidence: Double {
+        get {
+            guard let v = defaults.object(forKey: Key.dsparkConfidence) as? Double else { return 0.9 }
+            return min(1.0, max(0.0, v))
+        }
+        set { defaults.set(min(1.0, max(0.0, newValue)), forKey: Key.dsparkConfidence) }
+    }
+
+    /// --tokens: default max output tokens when clients omit a limit. 0 = engine default.
+    var defaultMaxTokens: Int {
+        get { max(0, defaults.integer(forKey: Key.defaultMaxTokens)) }
+        set { defaults.set(max(0, newValue), forKey: Key.defaultMaxTokens) }
     }
 }
