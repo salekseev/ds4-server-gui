@@ -7,77 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03BA04A03A5948659603926B /* ds4_ssd.c in Sources */ = {isa = PBXBuildFile; fileRef = 314AB99ECE3640AEB79DF3C4 /* ds4_ssd.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
-		0B71CDEB39A04297BB12CD9E /* rax.c in Sources */ = {isa = PBXBuildFile; fileRef = 8BB75FCA20DB44F68D9F8303 /* rax.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
-		0F4A517DBB9A494AB9312CCE /* softmax.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 9E00AADF010D469A9533606C /* softmax.metal */; };
-		1209CC3F378243248BC2820D /* glu.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 5C49932A86324D9C825BD78B /* glu.metal */; };
-		1DE1ECD03A5649B58828492C /* dsv4_misc.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 20B10D2EFB9743409C56E5AC /* dsv4_misc.metal */; };
+		03BA04A03A5948659603926B /* ds4_ssd.c in Sources */ = {isa = PBXBuildFile; fileRef = 314AB99ECE3640AEB79DF3C4 /* ds4_ssd.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		0B71CDEB39A04297BB12CD9E /* rax.c in Sources */ = {isa = PBXBuildFile; fileRef = 8BB75FCA20DB44F68D9F8303 /* rax.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		2791E2B6E8AD4B5B9278E80D /* ModelSetupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA6F580DA649AB9D5E025C /* ModelSetupWindowController.swift */; };
-		28FC8D3323814195A98FBC31 /* flash_attn.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 905A97F472D8492AAC0B79FB /* flash_attn.metal */; };
 		2AA62147EAEA44BFB348F154 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D0BD1F5CFD469ABF592CB5 /* ServerManager.swift */; };
-		3260755041F2416F9ABBC690 /* concat.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 86EA5E1D447844B89B187AA7 /* concat.metal */; };
-		3C07104AC49C43BCA3A389AE /* argsort.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 762025AE974849E3B35DB74C /* argsort.metal */; };
-		476DE0B8C4574E9784DD6A0E /* moe.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 54429455347C47C4B386CBF0 /* moe.metal */; };
 		4A02EA65745942FDA8371431 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA62DCDFD28450FA6956E76 /* SettingsWindowController.swift */; };
-		6867A5D35062492C9E87C0AB /* dsv4_kv.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = ED21315AD0E04EBE9D2B76F7 /* dsv4_kv.metal */; };
-		6F091F580CE5494E9CA5216D /* bin.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = EF5C65A0F37444C0BF051DB2 /* bin.metal */; };
-		7254AECC93244294AC3C4700 /* unary.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = F584A02E1DC54621B308426D /* unary.metal */; };
-		78E07086B9C04137A5D9AE17 /* ds4.c in Sources */ = {isa = PBXBuildFile; fileRef = 27C95AEB3CF945188B08DC9B /* ds4.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
-		7DC599224BA2459EBBBE9790 /* set_rows.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 71B13475B6984C5BBAE80343 /* set_rows.metal */; };
-		7E5695DF7C4749EC96B4AD11 /* ds4_kvstore.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BD943C79C5045AC8F06D013 /* ds4_kvstore.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
-		85A8365358844BFA99EE668C /* dsv4_rope.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = C115BB7966A64797BB090C1D /* dsv4_rope.metal */; };
+		78E07086B9C04137A5D9AE17 /* ds4.c in Sources */ = {isa = PBXBuildFile; fileRef = 27C95AEB3CF945188B08DC9B /* ds4.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		7E5695DF7C4749EC96B4AD11 /* ds4_kvstore.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BD943C79C5045AC8F06D013 /* ds4_kvstore.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		8947E93D2F6C496D9CCB03B5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB9BF6882E474D3D9E0B7CF7 /* Localizable.strings */; };
 		8CFA61FB9DCC4AEB84B7DAED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BDD0F3DBBC8141E9BAB8567E /* Localizable.strings */; };
-		8ED7F383E14C4EA48A9F5CC0 /* ds4_help.c in Sources */ = {isa = PBXBuildFile; fileRef = 0F056445687C41AC84393A63 /* ds4_help.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		8ED7F383E14C4EA48A9F5CC0 /* ds4_help.c in Sources */ = {isa = PBXBuildFile; fileRef = 0F056445687C41AC84393A63 /* ds4_help.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		98E04E3EDEC343A2A8741D6E /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744491287902463489E1B6A8 /* L10n.swift */; };
-		9CF55F0F59894D0EB255222A /* ds4_server.c in Sources */ = {isa = PBXBuildFile; fileRef = E6E9FE38885C41A78452D3E8 /* ds4_server.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
-		A418B641D4F449338B546CD0 /* cpy.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = F4059BF1D6AA4706927E07DB /* cpy.metal */; };
-		A876537FC3C74E23BD311846 /* dsv4_hc.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = A17F5E7324EF48FE99D982D0 /* dsv4_hc.metal */; };
-		A956F329F3F441EABB11BC1F /* ds4_distributed.c in Sources */ = {isa = PBXBuildFile; fileRef = 958ABAF9DC4C4EAFB5B03E7B /* ds4_distributed.c */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
-		AD367DB7E137497E8791EE0D /* dense.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 8E5562F4E79143B28AC60528 /* dense.metal */; };
+		9CF55F0F59894D0EB255222A /* ds4_server_embed.c in Sources */ = {isa = PBXBuildFile; fileRef = E6E9FE38885C41A78452D3E8 /* ds4_server_embed.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		A956F329F3F441EABB11BC1F /* ds4_distributed.c in Sources */ = {isa = PBXBuildFile; fileRef = 958ABAF9DC4C4EAFB5B03E7B /* ds4_distributed.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		AF0DD7D9BC0F442E9FA0D930 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76C3057D03594A2D81E859D0 /* Localizable.strings */; };
 		AF1F75BA7F014BE9A85418DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1188F867B3F44EDD8C1B17D0 /* AppDelegate.swift */; };
 		B288C09478CD4633B53DB17B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155FAEF81FC4FAF86522595 /* Settings.swift */; };
 		FF66EE55DD44CC33BB22AA11 /* LaunchAtLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA11BB22CC33DD44EE55FF66 /* LaunchAtLoginManager.swift */; };
-		BCC7E6E396234BC999B11C5D /* norm.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = A49D88A50D864AB9B45A4BFF /* norm.metal */; };
-		BDD2987126B4484EB4F86071 /* repeat.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = FFE53ABF481C457E933E1896 /* repeat.metal */; };
 		C442BEE1C97F4953B6875A24 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE4CF016D7A4CE8BAB47C63 /* main.swift */; };
 		C5BD296B8BFC49308715AC17 /* LogWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF47427D4014EDBB30ADCF7 /* LogWindowController.swift */; };
-		CA8A33155C4A4684A30F1C64 /* get_rows.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 4BEDA32A4A3446DAA58EF48A /* get_rows.metal */; };
 		D5FFB7305B304EA5AED5E26F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F3B0A6FA412345209D7301A9 /* Localizable.strings */; };
-		D932F236B89E46C39BC5326C /* sum_rows.metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = 803D97429A3D4D43970E0DE2 /* sum_rows.metal */; };
-		F94FD57E5B7F4A4388FE6D82 /* ds4_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = D8ECA74BEF64449F939DF195 /* ds4_metal.m */; settings = {COMPILER_FLAGS = "-DS4_SERVER_TEST_NO_MAIN -O3 -ffast-math -Wall -Wextra -std=c99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		F94FD57E5B7F4A4388FE6D82 /* ds4_metal.m in Sources */ = {isa = PBXBuildFile; fileRef = D8ECA74BEF64449F939DF195 /* ds4_metal.m */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		002D8CABFA444207B8DA13A5 = {isa = PBXBuildFile; fileRef = 03D0B52B73E145C3B9AB1513 /* Assets.xcassets */; };
 		F8C1AC82A3E04BD2B21B9F90 = {isa = PBXBuildFile; fileRef = EBBCFD84B71D435DAC119639 /* AppIcon.icns */; };
 		DDCCBBAA44332211DDCCBBAA /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBCCDD11223344AABBCCDD /* ServiceManagement.framework */; };
+		D5AA0000000000000000AA02 /* metal in Copy Metal Shaders */ = {isa = PBXBuildFile; fileRef = D5AA0000000000000000AA01 /* metal */; };
+		D5AA0000000000000000AA20 /* ds4_layer_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = D5AA0000000000000000AA10 /* ds4_layer_pack.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		D5AA0000000000000000AA21 /* ds4_tp.c in Sources */ = {isa = PBXBuildFile; fileRef = D5AA0000000000000000AA11 /* ds4_tp.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
+		D5AA0000000000000000AA22 /* ds4_gpu_args.c in Sources */ = {isa = PBXBuildFile; fileRef = D5AA0000000000000000AA12 /* ds4_gpu_args.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		14461AF0197645E7BB7BD04E /* Copy Metal Shaders */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = metal;
+			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				6867A5D35062492C9E87C0AB /* dsv4_kv.metal in Copy Metal Shaders */,
-				BDD2987126B4484EB4F86071 /* repeat.metal in Copy Metal Shaders */,
-				7254AECC93244294AC3C4700 /* unary.metal in Copy Metal Shaders */,
-				CA8A33155C4A4684A30F1C64 /* get_rows.metal in Copy Metal Shaders */,
-				D932F236B89E46C39BC5326C /* sum_rows.metal in Copy Metal Shaders */,
-				28FC8D3323814195A98FBC31 /* flash_attn.metal in Copy Metal Shaders */,
-				A876537FC3C74E23BD311846 /* dsv4_hc.metal in Copy Metal Shaders */,
-				7DC599224BA2459EBBBE9790 /* set_rows.metal in Copy Metal Shaders */,
-				476DE0B8C4574E9784DD6A0E /* moe.metal in Copy Metal Shaders */,
-				BCC7E6E396234BC999B11C5D /* norm.metal in Copy Metal Shaders */,
-				3260755041F2416F9ABBC690 /* concat.metal in Copy Metal Shaders */,
-				85A8365358844BFA99EE668C /* dsv4_rope.metal in Copy Metal Shaders */,
-				1DE1ECD03A5649B58828492C /* dsv4_misc.metal in Copy Metal Shaders */,
-				A418B641D4F449338B546CD0 /* cpy.metal in Copy Metal Shaders */,
-				0F4A517DBB9A494AB9312CCE /* softmax.metal in Copy Metal Shaders */,
-				3C07104AC49C43BCA3A389AE /* argsort.metal in Copy Metal Shaders */,
-				1209CC3F378243248BC2820D /* glu.metal in Copy Metal Shaders */,
-				6F091F580CE5494E9CA5216D /* bin.metal in Copy Metal Shaders */,
-				AD367DB7E137497E8791EE0D /* dense.metal in Copy Metal Shaders */,
+				D5AA0000000000000000AA02 /* metal in Copy Metal Shaders */,
 			);
 			name = "Copy Metal Shaders";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,59 +53,44 @@
 
 /* Begin PBXFileReference section */
 		02EB5B01564440EDAAE359FD /* DS4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS4.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0890C94401074343A4BB4E3A /* rax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rax.h; path = "ds4-engine/Sources/ds4engine/rax.h"; sourceTree = SOURCE_ROOT; };
+		0890C94401074343A4BB4E3A /* rax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rax.h; path = "ds4-engine/upstream/rax.h"; sourceTree = SOURCE_ROOT; };
 		0DE4CF016D7A4CE8BAB47C63 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Sources/main.swift; sourceTree = SOURCE_ROOT; };
-		0F056445687C41AC84393A63 /* ds4_help.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_help.c; path = "ds4-engine/Sources/ds4engine/ds4_help.c"; sourceTree = SOURCE_ROOT; };
+		0F056445687C41AC84393A63 /* ds4_help.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_help.c; path = "ds4-engine/upstream/ds4_help.c"; sourceTree = SOURCE_ROOT; };
 		1155FAEF81FC4FAF86522595 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = Sources/Settings.swift; sourceTree = SOURCE_ROOT; };
 		AA11BB22CC33DD44EE55FF66 /* LaunchAtLoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LaunchAtLoginManager.swift; path = Sources/LaunchAtLoginManager.swift; sourceTree = SOURCE_ROOT; };
 		1188F867B3F44EDD8C1B17D0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Sources/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
-		20B10D2EFB9743409C56E5AC /* dsv4_misc.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsv4_misc.metal; path = "ds4-engine/Sources/ds4engine/metal/dsv4_misc.metal"; sourceTree = SOURCE_ROOT; };
-		27C95AEB3CF945188B08DC9B /* ds4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4.c; path = "ds4-engine/Sources/ds4engine/ds4.c"; sourceTree = SOURCE_ROOT; };
-		314AB99ECE3640AEB79DF3C4 /* ds4_ssd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_ssd.c; path = "ds4-engine/Sources/ds4engine/ds4_ssd.c"; sourceTree = SOURCE_ROOT; };
-		357A053E654940E4AF638655 /* ds4_help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_help.h; path = "ds4-engine/Sources/ds4engine/ds4_help.h"; sourceTree = SOURCE_ROOT; };
+		27C95AEB3CF945188B08DC9B /* ds4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4.c; path = "ds4-engine/upstream/ds4.c"; sourceTree = SOURCE_ROOT; };
+		314AB99ECE3640AEB79DF3C4 /* ds4_ssd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_ssd.c; path = "ds4-engine/upstream/ds4_ssd.c"; sourceTree = SOURCE_ROOT; };
+		357A053E654940E4AF638655 /* ds4_help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_help.h; path = "ds4-engine/upstream/ds4_help.h"; sourceTree = SOURCE_ROOT; };
 		3FDA6F580DA649AB9D5E025C /* ModelSetupWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelSetupWindowController.swift; path = Sources/ModelSetupWindowController.swift; sourceTree = SOURCE_ROOT; };
 		44D0BD1F5CFD469ABF592CB5 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerManager.swift; path = Sources/ServerManager.swift; sourceTree = SOURCE_ROOT; };
-		468F76E98F7349B08EEFCB46 /* ds4_gpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_gpu.h; path = "ds4-engine/Sources/ds4engine/ds4_gpu.h"; sourceTree = SOURCE_ROOT; };
-		4BEDA32A4A3446DAA58EF48A /* get_rows.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = get_rows.metal; path = "ds4-engine/Sources/ds4engine/metal/get_rows.metal"; sourceTree = SOURCE_ROOT; };
-		4FCC09E5F09C43EB9A13F06D /* ds4_kvstore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_kvstore.h; path = "ds4-engine/Sources/ds4engine/ds4_kvstore.h"; sourceTree = SOURCE_ROOT; };
-		54429455347C47C4B386CBF0 /* moe.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = moe.metal; path = "ds4-engine/Sources/ds4engine/metal/moe.metal"; sourceTree = SOURCE_ROOT; };
-		5C49932A86324D9C825BD78B /* glu.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = glu.metal; path = "ds4-engine/Sources/ds4engine/metal/glu.metal"; sourceTree = SOURCE_ROOT; };
-		71B13475B6984C5BBAE80343 /* set_rows.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = set_rows.metal; path = "ds4-engine/Sources/ds4engine/metal/set_rows.metal"; sourceTree = SOURCE_ROOT; };
-		72FA5E1994544E308C9DEC72 /* ds4_distributed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_distributed.h; path = "ds4-engine/Sources/ds4engine/ds4_distributed.h"; sourceTree = SOURCE_ROOT; };
+		468F76E98F7349B08EEFCB46 /* ds4_gpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_gpu.h; path = "ds4-engine/upstream/ds4_gpu.h"; sourceTree = SOURCE_ROOT; };
+		4FCC09E5F09C43EB9A13F06D /* ds4_kvstore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_kvstore.h; path = "ds4-engine/upstream/ds4_kvstore.h"; sourceTree = SOURCE_ROOT; };
+		72FA5E1994544E308C9DEC72 /* ds4_distributed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_distributed.h; path = "ds4-engine/upstream/ds4_distributed.h"; sourceTree = SOURCE_ROOT; };
 		744491287902463489E1B6A8 /* L10n.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = L10n.swift; path = Sources/L10n.swift; sourceTree = SOURCE_ROOT; };
-		762025AE974849E3B35DB74C /* argsort.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = argsort.metal; path = "ds4-engine/Sources/ds4engine/metal/argsort.metal"; sourceTree = SOURCE_ROOT; };
 		76C3057D03594A2D81E859D0 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = Sources/Resources/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		7DB35C2F606848BC876D6918 /* rax_malloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rax_malloc.h; path = "ds4-engine/Sources/ds4engine/rax_malloc.h"; sourceTree = SOURCE_ROOT; };
-		803D97429A3D4D43970E0DE2 /* sum_rows.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sum_rows.metal; path = "ds4-engine/Sources/ds4engine/metal/sum_rows.metal"; sourceTree = SOURCE_ROOT; };
-		8395F8AE5BBE4556AD2E5CD9 /* ds4engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4engine.h; path = "ds4-engine/Sources/ds4engine/include/ds4engine.h"; sourceTree = SOURCE_ROOT; };
-		86EA5E1D447844B89B187AA7 /* concat.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = concat.metal; path = "ds4-engine/Sources/ds4engine/metal/concat.metal"; sourceTree = SOURCE_ROOT; };
-		8BB75FCA20DB44F68D9F8303 /* rax.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rax.c; path = "ds4-engine/Sources/ds4engine/rax.c"; sourceTree = SOURCE_ROOT; };
-		8E5562F4E79143B28AC60528 /* dense.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dense.metal; path = "ds4-engine/Sources/ds4engine/metal/dense.metal"; sourceTree = SOURCE_ROOT; };
+		7DB35C2F606848BC876D6918 /* rax_malloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rax_malloc.h; path = "ds4-engine/upstream/rax_malloc.h"; sourceTree = SOURCE_ROOT; };
+		8395F8AE5BBE4556AD2E5CD9 /* ds4engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4engine.h; path = "ds4-engine/embed/include/ds4engine.h"; sourceTree = SOURCE_ROOT; };
+		8BB75FCA20DB44F68D9F8303 /* rax.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = rax.c; path = "ds4-engine/upstream/rax.c"; sourceTree = SOURCE_ROOT; };
 		8FF47427D4014EDBB30ADCF7 /* LogWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogWindowController.swift; path = Sources/LogWindowController.swift; sourceTree = SOURCE_ROOT; };
-		905A97F472D8492AAC0B79FB /* flash_attn.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = flash_attn.metal; path = "ds4-engine/Sources/ds4engine/metal/flash_attn.metal"; sourceTree = SOURCE_ROOT; };
-		93CCA1FECA604C57BB4DFE3C /* ds4_ssd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_ssd.h; path = "ds4-engine/Sources/ds4engine/ds4_ssd.h"; sourceTree = SOURCE_ROOT; };
-		958ABAF9DC4C4EAFB5B03E7B /* ds4_distributed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_distributed.c; path = "ds4-engine/Sources/ds4engine/ds4_distributed.c"; sourceTree = SOURCE_ROOT; };
-		9BD943C79C5045AC8F06D013 /* ds4_kvstore.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_kvstore.c; path = "ds4-engine/Sources/ds4engine/ds4_kvstore.c"; sourceTree = SOURCE_ROOT; };
-		9E00AADF010D469A9533606C /* softmax.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = softmax.metal; path = "ds4-engine/Sources/ds4engine/metal/softmax.metal"; sourceTree = SOURCE_ROOT; };
-		A17F5E7324EF48FE99D982D0 /* dsv4_hc.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsv4_hc.metal; path = "ds4-engine/Sources/ds4engine/metal/dsv4_hc.metal"; sourceTree = SOURCE_ROOT; };
-		A49D88A50D864AB9B45A4BFF /* norm.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = norm.metal; path = "ds4-engine/Sources/ds4engine/metal/norm.metal"; sourceTree = SOURCE_ROOT; };
+		93CCA1FECA604C57BB4DFE3C /* ds4_ssd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_ssd.h; path = "ds4-engine/upstream/ds4_ssd.h"; sourceTree = SOURCE_ROOT; };
+		958ABAF9DC4C4EAFB5B03E7B /* ds4_distributed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_distributed.c; path = "ds4-engine/upstream/ds4_distributed.c"; sourceTree = SOURCE_ROOT; };
+		9BD943C79C5045AC8F06D013 /* ds4_kvstore.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_kvstore.c; path = "ds4-engine/upstream/ds4_kvstore.c"; sourceTree = SOURCE_ROOT; };
 		A5D43456DD0947E0B29C0884 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Sources/Info.plist; sourceTree = SOURCE_ROOT; };
 		ACA62DCDFD28450FA6956E76 /* SettingsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsWindowController.swift; path = Sources/SettingsWindowController.swift; sourceTree = SOURCE_ROOT; };
 		BDD0F3DBBC8141E9BAB8567E /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "Sources/Resources/zh-Hans.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		C115BB7966A64797BB090C1D /* dsv4_rope.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsv4_rope.metal; path = "ds4-engine/Sources/ds4engine/metal/dsv4_rope.metal"; sourceTree = SOURCE_ROOT; };
-		D8ECA74BEF64449F939DF195 /* ds4_metal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ds4_metal.m; path = "ds4-engine/Sources/ds4engine/ds4_metal.m"; sourceTree = SOURCE_ROOT; };
-		E6E9FE38885C41A78452D3E8 /* ds4_server.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_server.c; path = "ds4-engine/Sources/ds4engine/ds4_server.c"; sourceTree = SOURCE_ROOT; };
-		ED21315AD0E04EBE9D2B76F7 /* dsv4_kv.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsv4_kv.metal; path = "ds4-engine/Sources/ds4engine/metal/dsv4_kv.metal"; sourceTree = SOURCE_ROOT; };
-		EF5C65A0F37444C0BF051DB2 /* bin.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = bin.metal; path = "ds4-engine/Sources/ds4engine/metal/bin.metal"; sourceTree = SOURCE_ROOT; };
+		D8ECA74BEF64449F939DF195 /* ds4_metal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ds4_metal.m; path = "ds4-engine/upstream/ds4_metal.m"; sourceTree = SOURCE_ROOT; };
+		E6E9FE38885C41A78452D3E8 /* ds4_server_embed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_server_embed.c; path = "ds4-engine/embed/ds4_server_embed.c"; sourceTree = SOURCE_ROOT; };
 		F3B0A6FA412345209D7301A9 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = Sources/Resources/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		F4059BF1D6AA4706927E07DB /* cpy.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cpy.metal; path = "ds4-engine/Sources/ds4engine/metal/cpy.metal"; sourceTree = SOURCE_ROOT; };
-		F584A02E1DC54621B308426D /* unary.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = unary.metal; path = "ds4-engine/Sources/ds4engine/metal/unary.metal"; sourceTree = SOURCE_ROOT; };
-		F878FBCB5582428D9B21BB01 /* ds4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4.h; path = "ds4-engine/Sources/ds4engine/ds4.h"; sourceTree = SOURCE_ROOT; };
+		F878FBCB5582428D9B21BB01 /* ds4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4.h; path = "ds4-engine/upstream/ds4.h"; sourceTree = SOURCE_ROOT; };
 		FB9BF6882E474D3D9E0B7CF7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "Sources/Resources/zh-Hant.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
-		FFE53ABF481C457E933E1896 /* repeat.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = repeat.metal; path = "ds4-engine/Sources/ds4engine/metal/repeat.metal"; sourceTree = SOURCE_ROOT; };
 		03D0B52B73E145C3B9AB1513 = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Assets.xcassets"; path = "Sources/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		EBBCFD84B71D435DAC119639 = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "AppIcon.icns"; path = "Sources/AppIcon.icns"; sourceTree = SOURCE_ROOT; };
 		AABBCCDD11223344AABBCCDD /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		D5AA0000000000000000AA01 /* metal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = metal; path = "ds4-engine/upstream/metal"; sourceTree = SOURCE_ROOT; };
+		D5AA0000000000000000AA10 /* ds4_layer_pack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_layer_pack.c; path = "ds4-engine/upstream/ds4_layer_pack.c"; sourceTree = SOURCE_ROOT; };
+		D5AA0000000000000000AA11 /* ds4_tp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_tp.c; path = "ds4-engine/upstream/ds4_tp.c"; sourceTree = SOURCE_ROOT; };
+		D5AA0000000000000000AA12 /* ds4_gpu_args.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_gpu_args.c; path = "ds4-engine/upstream/ds4_gpu_args.c"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,25 +146,7 @@
 		4FE8F5FBB9AE400CBEB58635 /* Metal */ = {
 			isa = PBXGroup;
 			children = (
-				ED21315AD0E04EBE9D2B76F7 /* dsv4_kv.metal */,
-				FFE53ABF481C457E933E1896 /* repeat.metal */,
-				F584A02E1DC54621B308426D /* unary.metal */,
-				4BEDA32A4A3446DAA58EF48A /* get_rows.metal */,
-				803D97429A3D4D43970E0DE2 /* sum_rows.metal */,
-				905A97F472D8492AAC0B79FB /* flash_attn.metal */,
-				A17F5E7324EF48FE99D982D0 /* dsv4_hc.metal */,
-				71B13475B6984C5BBAE80343 /* set_rows.metal */,
-				54429455347C47C4B386CBF0 /* moe.metal */,
-				A49D88A50D864AB9B45A4BFF /* norm.metal */,
-				86EA5E1D447844B89B187AA7 /* concat.metal */,
-				C115BB7966A64797BB090C1D /* dsv4_rope.metal */,
-				20B10D2EFB9743409C56E5AC /* dsv4_misc.metal */,
-				F4059BF1D6AA4706927E07DB /* cpy.metal */,
-				9E00AADF010D469A9533606C /* softmax.metal */,
-				762025AE974849E3B35DB74C /* argsort.metal */,
-				5C49932A86324D9C825BD78B /* glu.metal */,
-				EF5C65A0F37444C0BF051DB2 /* bin.metal */,
-				8E5562F4E79143B28AC60528 /* dense.metal */,
+				D5AA0000000000000000AA01 /* metal */,
 			);
 			name = Metal;
 			sourceTree = "<group>";
@@ -248,10 +182,13 @@
 				314AB99ECE3640AEB79DF3C4 /* ds4_ssd.c */,
 				958ABAF9DC4C4EAFB5B03E7B /* ds4_distributed.c */,
 				D8ECA74BEF64449F939DF195 /* ds4_metal.m */,
-				E6E9FE38885C41A78452D3E8 /* ds4_server.c */,
+				E6E9FE38885C41A78452D3E8 /* ds4_server_embed.c */,
 				0F056445687C41AC84393A63 /* ds4_help.c */,
 				9BD943C79C5045AC8F06D013 /* ds4_kvstore.c */,
 				8BB75FCA20DB44F68D9F8303 /* rax.c */,
+				D5AA0000000000000000AA10 /* ds4_layer_pack.c */,
+				D5AA0000000000000000AA11 /* ds4_tp.c */,
+				D5AA0000000000000000AA12 /* ds4_gpu_args.c */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -382,10 +319,13 @@
 				03BA04A03A5948659603926B /* ds4_ssd.c in Sources */,
 				A956F329F3F441EABB11BC1F /* ds4_distributed.c in Sources */,
 				F94FD57E5B7F4A4388FE6D82 /* ds4_metal.m in Sources */,
-				9CF55F0F59894D0EB255222A /* ds4_server.c in Sources */,
+				9CF55F0F59894D0EB255222A /* ds4_server_embed.c in Sources */,
 				8ED7F383E14C4EA48A9F5CC0 /* ds4_help.c in Sources */,
 				7E5695DF7C4749EC96B4AD11 /* ds4_kvstore.c in Sources */,
 				0B71CDEB39A04297BB12CD9E /* rax.c in Sources */,
+				D5AA0000000000000000AA20 /* ds4_layer_pack.c in Sources */,
+				D5AA0000000000000000AA21 /* ds4_tp.c in Sources */,
+				D5AA0000000000000000AA22 /* ds4_gpu_args.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,8 +351,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/ds4-engine/Sources/ds4engine/include",
-					"$(SRCROOT)/ds4-engine/Sources/ds4engine",
+					"$(SRCROOT)/ds4-engine/embed/include",
+					"$(SRCROOT)/ds4-engine/upstream",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -500,8 +440,8 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/ds4-engine/Sources/ds4engine/include",
-					"$(SRCROOT)/ds4-engine/Sources/ds4engine",
+					"$(SRCROOT)/ds4-engine/embed/include",
+					"$(SRCROOT)/ds4-engine/upstream",
 				);
 				INFOPLIST_FILE = Sources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

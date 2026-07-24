@@ -19,7 +19,9 @@
 2. `git -C DS4MacOS/ds4-engine/upstream checkout <new-commit>`
 3. Rebuild BOTH ways (`swift build` in DS4MacOS/, and the DS4.xcodeproj scheme).
    Add any new upstream .c files the linker demands to Package.swift AND
-   project.pbxproj.
+   project.pbxproj. Watch for compiler flag changes too — e.g. the std flag
+   is `gnu99`, not `c99`, because upstream `ds4_metal.m` uses GNU `typeof()`;
+   a future upstream file could require its own flag adjustments.
 4. Re-verify the fragile couplings:
    - `ds4_server_request_stop()` in `embed/ds4_server_embed.c` touches the
      file-statics `g_stop_requested` / `g_listen_fd` — confirm they still exist
@@ -27,3 +29,5 @@
    - `metal/flash_attn.metal` still exists (the app probes for it at runtime).
 5. `git add DS4MacOS/ds4-engine/upstream` and commit with the upstream range
    in the message.
+6. Tell teammates to run `git submodule update --init` after pulling the bump
+   (a plain `git pull` does not update submodule contents on its own).

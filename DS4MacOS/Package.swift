@@ -13,6 +13,8 @@ let package = Package(
         .target(
             name: "ds4engine",
             path: "ds4-engine",
+            // Keep in sync with the ds4-server link line in upstream/Makefile.
+            // upstream/ds4_server.c is NOT listed: it compiles via #include in embed/ds4_server_embed.c
             sources: [
                 "embed/ds4_server_embed.c",
                 "upstream/ds4.c",
@@ -35,7 +37,7 @@ let package = Package(
                 .headerSearchPath("upstream"),
                 .unsafeFlags([
                     "-O3", "-ffast-math", "-mcpu=native",
-                    "-Wall", "-Wextra", "-std=gnu99",
+                    "-Wall", "-Wextra", "-std=gnu99", // gnu99, not c99: upstream ds4_metal.m uses GNU typeof()
                     "-Wno-unused-parameter", "-Wno-unused-variable",
                     "-Wno-sign-compare",
                 ]),
