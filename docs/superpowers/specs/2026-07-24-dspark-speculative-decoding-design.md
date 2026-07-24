@@ -15,7 +15,7 @@ Let the menu bar app run its embedded ds4-server with DSpark speculative decodin
 
 Two workstreams, delivered together in this project:
 
-1. **Engine sync** — the vendored ds4 engine predates dspark (`--dspark`, `--dspark-confidence`, `--dspark-strict` are absent from its arg parser). Re-vendor from current upstream antirez/ds4 via **git subtree**, restructured so upstream files are never locally patched again.
+1. **Engine sync** — the vendored ds4 engine predates dspark (`--dspark`, `--dspark-confidence`, `--dspark-strict` are absent from its arg parser). Replace the vendored copy with a **git submodule** of upstream antirez/ds4 pinned to an exact commit, restructured so upstream files are never locally patched again.
 2. **GUI** — settings, UI, and arg-builder support for dspark plus a default-max-output-tokens (`--tokens`) setting.
 
 ## Decisions made during brainstorming
@@ -24,9 +24,13 @@ Two workstreams, delivered together in this project:
 - UI scope: dspark toggle, support-GGUF path, and `--dspark-confidence` field. No `--mtp-draft` / `--mtp-margin` / `--dspark-strict` exposure.
 - Include a "default max output tokens" (`--tokens`) setting.
 - Support GGUF acquisition: Browse-only (user downloads the ~5.6 GiB file themselves). No in-app downloader.
-- Pinning mechanism: **git subtree** (chosen over submodule, sync script, and package managers — CocoaPods doesn't integrate with an SPM-only app and is in maintenance mode; an SPM remote dependency is blocked because remote packages may not use `unsafeFlags`, which the engine needs for `-O3 -ffast-math -mcpu=native`).
+- Pinning mechanism: **git submodule** (final choice after evaluating alternatives):
+  - CocoaPods: doesn't integrate with an SPM-built app (needs an `.xcworkspace` integration) and is in maintenance mode.
+  - SPM remote dependency on a thin fork: blocked — remote packages may not use `unsafeFlags`, which the engine needs for `-O3 -ffast-math -mcpu=native`.
+  - CMake `ExternalProject`/`FetchContent`: would require migrating both build paths (SPM and `DS4.xcodeproj`) to CMake, where Swift support is second-class — rejected as disproportionate.
+  - Git subtree / fetch-script: workable, but the submodule keeps upstream code out of the repo entirely with a git-enforced, visible pin (`.gitmodules` + gitlink) and standard update tooling.
 
-## Part 1 — Engine subtree + embed layer
+## Part 1 — Engine submodule + embed layer
 
 ### Layout
 
@@ -34,13 +38,15 @@ Replaces `DS4MacOS/ds4-engine/Sources/ds4engine/` entirely:
 
 ```
 DS4MacOS/ds4-engine/
-  upstream/                  # git subtree of antirez/ds4, squashed, pinned via merge commit
-    ds4.c  ds4_server.c  ds4_metal.m  metal/  ...(full upstream tree)
+  upstream/                  # git submodule → antirez/ds4, pinned to an exact commit
+    ds4.c  ds4_server.c  ds4_metal.m  metal/  ...(full upstream tree, checked out)
   embed/
     ds4_server_embed.c       # ALL local glue (below)
     include/ds4engine.h      # existing shim header, moved verbatim
-  README.md                  # sync procedure + current upstream ref
+  README.md                  # sync procedure + clone instructions
 ```
+
+The submodule is registered in `.gitmodules`; the pinned commit is the gitlink recorded in this repo. No upstream code is committed here.
 
 ### Embed wrapper (`embed/ds4_server_embed.c`)
 
@@ -70,13 +76,22 @@ void ds4_server_request_stop(void) {
 - `publicHeadersPath: "embed/include"`
 - `cSettings`: keep existing defines/flags, add `.headerSearchPath("upstream")`
 
+### DS4.xcodeproj
+
+CI builds the release .app via `xcodebuild -project DS4.xcodeproj`, so `project.pbxproj` references to the engine source paths must be updated to the new `upstream/` + `embed/` layout alongside `Package.swift`, and verified by building both ways.
+
+### Clone & CI requirements
+
+- Fresh clones: `git clone --recursive`, or `git submodule update --init` after a plain clone. Documented in the top-level README and ds4-engine/README.md.
+- CI: `actions/checkout` gains `submodules: true`.
+- A plain clone without submodule init fails the build with obvious missing-file errors; the READMEs are the mitigation.
+
 ### Sync procedure (documented in ds4-engine/README.md)
 
-1. `git subtree pull --prefix DS4MacOS/ds4-engine/upstream <upstream-url> <ref> --squash`
-2. Rebuild; adjust the `sources:` list on linker errors.
+1. `git -C DS4MacOS/ds4-engine/upstream fetch origin && git -C DS4MacOS/ds4-engine/upstream checkout <new-ref>`
+2. Rebuild; adjust the `sources:` list (Package.swift and project.pbxproj) on compiler/linker errors.
 3. Re-verify the two fragile couplings: (a) the static variable names used by `ds4_server_request_stop()`; (b) `metal/flash_attn.metal` still exists.
-
-No CI changes: subtree repos clone normally.
+4. Commit the updated gitlink (`git add DS4MacOS/ds4-engine/upstream`) with the upstream range in the message.
 
 ### First-sync verification gates
 
