@@ -232,8 +232,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         settingsWindowController?.onApply = { [weak self] in
             DispatchQueue.main.async {
-                if case .running = self?.serverManager.status {
+                switch self?.serverManager.status {
+                case .running:
                     self?.serverManager.restart()
+                case .error:
+                    // Settings changes are the usual remedy for a failed start
+                    // (e.g. bad DSpark support path) — retry immediately.
+                    self?.serverManager.start()
+                default:
+                    break
                 }
             }
         }

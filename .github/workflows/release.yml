@@ -19,6 +19,10 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
 
+      - name: Run tests
+        working-directory: DS4MacOS
+        run: swift test
+
       - name: Build
         working-directory: DS4MacOS
         run: |
