@@ -21,6 +21,22 @@ The server listens on `http://127.0.0.1:8000` by default:
 
 ## Build
 
+The DS4 inference engine is vendored as a git submodule (`DS4MacOS/ds4-engine/upstream/`),
+so clone with `--recursive`:
+
+```bash
+git clone --recursive <this-repo-url>
+```
+
+If you already have a plain clone, or after pulling a change that bumps the engine
+submodule pin, fetch the submodule contents with:
+
+```bash
+git submodule update --init
+```
+
+Then build:
+
 ```bash
 cd DS4MacOS
 DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
