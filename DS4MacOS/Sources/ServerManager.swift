@@ -34,7 +34,10 @@ class ServerManager {
     // MARK: - Public API
 
     func start() {
-        guard case .stopped = status else { return }
+        switch status {
+        case .stopped, .error: break
+        default: return
+        }
 
         let settings = Settings.shared
         let path = settings.modelPath
@@ -57,6 +60,20 @@ class ServerManager {
             return
         }
 
+        // DSpark support file must be valid when it will actually be used
+        // (SSD streaming disables DSpark — see buildServerArgs).
+        if settings.enableDSpark && !settings.enableSSDStreaming {
+            let dsparkPath = settings.dsparkModelPath
+            let dsparkSize = (try? FileManager.default
+                .attributesOfItem(atPath: dsparkPath)[.size] as? Int64 ?? 0) ?? 0
+            if dsparkPath.isEmpty || dsparkSize <= 1_048_576 {
+                let msg = L("server.error.dspark_invalid", dsparkPath)
+                status = .error(msg)
+                LogWindowController.shared.append("[ERROR] \(msg)\n")
+                return
+            }
+        }
+
         status = .starting
         isRunning = true
 
@@ -65,7 +82,14 @@ class ServerManager {
             .appendingPathComponent("ds4.lock").path
         setenv("DS4_LOCK_FILE", lockFile, 1)
 
-        let args = buildArgs(settings: settings, metalParentDir: metalDir)
+        let config = ServerArgsConfig(settings: settings)
+        if config.enableDiskKV {
+            try? FileManager.default.createDirectory(
+                atPath: resolvedKVDiskDir(config.kvDiskDir),
+                withIntermediateDirectories: true)
+        }
+        let (args, warnings) = buildServerArgs(config: config, metalParentDir: metalDir)
+        for w in warnings { LogWindowController.shared.append("[WARN] \(w)\n") }
         LogWindowController.shared.append("[INFO] Starting ds4-server (in-process)\n[INFO] chdir=\(metalDir)\n[INFO] args: \(args.dropFirst().joined(separator: " "))\n")
 
         setupLogCapture()
@@ -144,39 +168,6 @@ class ServerManager {
             }
             DispatchQueue.main.async { self?.start() }
         }
-    }
-
-    // MARK: - Argument Builder
-
-    private func buildArgs(settings: Settings, metalParentDir: String) -> [String] {
-        var args = ["ds4-server"]
-        args += ["--chdir", metalParentDir]
-        args += ["-m", settings.modelPath]
-        args += ["--ctx", String(settings.ctxSize)]
-        args += ["--port", String(settings.port)]
-        if settings.host != "127.0.0.1" && !settings.host.isEmpty {
-            args += ["--host", settings.host]
-        }
-        if settings.enableDiskKV {
-            let kvDir = settings.kvDiskDir.isEmpty
-                ? FileManager.default.homeDirectoryForCurrentUser
-                    .appendingPathComponent(".ds4/kvcache").path
-                : settings.kvDiskDir
-            try? FileManager.default.createDirectory(atPath: kvDir, withIntermediateDirectories: true)
-            args += ["--kv-disk-dir", kvDir]
-            args += ["--kv-disk-space-mb", String(settings.kvDiskSpaceMB)]
-        }
-        if settings.enableCORS { args += ["--cors"] }
-        if settings.powerPercent < 100 { args += ["--power", String(settings.powerPercent)] }
-        if settings.enableSSDStreaming {
-            args += ["--ssd-streaming"]
-            if settings.ssdStreamingCacheGB > 0 {
-                args += ["--ssd-streaming-cache-experts", "\(settings.ssdStreamingCacheGB)GB"]
-            }
-        }
-        if settings.threads > 0 { args += ["--threads", String(settings.threads)] }
-        if settings.prefillChunk > 0 { args += ["--prefill-chunk", String(settings.prefillChunk)] }
-        return args
     }
 
     // MARK: - Metal Shaders Directory
