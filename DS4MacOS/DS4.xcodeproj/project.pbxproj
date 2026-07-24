@@ -11,6 +11,7 @@
 		0B71CDEB39A04297BB12CD9E /* rax.c in Sources */ = {isa = PBXBuildFile; fileRef = 8BB75FCA20DB44F68D9F8303 /* rax.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		2791E2B6E8AD4B5B9278E80D /* ModelSetupWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA6F580DA649AB9D5E025C /* ModelSetupWindowController.swift */; };
 		2AA62147EAEA44BFB348F154 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D0BD1F5CFD469ABF592CB5 /* ServerManager.swift */; };
+		D5AA0000000000000000AA04 /* ServerArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AA0000000000000000AA03 /* ServerArguments.swift */; };
 		4A02EA65745942FDA8371431 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA62DCDFD28450FA6956E76 /* SettingsWindowController.swift */; };
 		78E07086B9C04137A5D9AE17 /* ds4.c in Sources */ = {isa = PBXBuildFile; fileRef = 27C95AEB3CF945188B08DC9B /* ds4.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
 		7E5695DF7C4749EC96B4AD11 /* ds4_kvstore.c in Sources */ = {isa = PBXBuildFile; fileRef = 9BD943C79C5045AC8F06D013 /* ds4_kvstore.c */; settings = {COMPILER_FLAGS = "-O3 -ffast-math -Wall -Wextra -std=gnu99 -Wno-unused-parameter -Wno-unused-variable -Wno-sign-compare"; }; };
@@ -64,6 +65,7 @@
 		357A053E654940E4AF638655 /* ds4_help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_help.h; path = "ds4-engine/upstream/ds4_help.h"; sourceTree = SOURCE_ROOT; };
 		3FDA6F580DA649AB9D5E025C /* ModelSetupWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelSetupWindowController.swift; path = Sources/ModelSetupWindowController.swift; sourceTree = SOURCE_ROOT; };
 		44D0BD1F5CFD469ABF592CB5 /* ServerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerManager.swift; path = Sources/ServerManager.swift; sourceTree = SOURCE_ROOT; };
+		D5AA0000000000000000AA03 /* ServerArguments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerArguments.swift; path = Sources/ServerArguments.swift; sourceTree = SOURCE_ROOT; };
 		468F76E98F7349B08EEFCB46 /* ds4_gpu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_gpu.h; path = "ds4-engine/upstream/ds4_gpu.h"; sourceTree = SOURCE_ROOT; };
 		4FCC09E5F09C43EB9A13F06D /* ds4_kvstore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_kvstore.h; path = "ds4-engine/upstream/ds4_kvstore.h"; sourceTree = SOURCE_ROOT; };
 		72FA5E1994544E308C9DEC72 /* ds4_distributed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ds4_distributed.h; path = "ds4-engine/upstream/ds4_distributed.h"; sourceTree = SOURCE_ROOT; };
@@ -202,6 +204,7 @@
 				8FF47427D4014EDBB30ADCF7 /* LogWindowController.swift */,
 				3FDA6F580DA649AB9D5E025C /* ModelSetupWindowController.swift */,
 				44D0BD1F5CFD469ABF592CB5 /* ServerManager.swift */,
+				D5AA0000000000000000AA03 /* ServerArguments.swift */,
 				1155FAEF81FC4FAF86522595 /* Settings.swift */,
 				AA11BB22CC33DD44EE55FF66 /* LaunchAtLoginManager.swift */,
 				ACA62DCDFD28450FA6956E76 /* SettingsWindowController.swift */,
@@ -311,6 +314,7 @@
 				C5BD296B8BFC49308715AC17 /* LogWindowController.swift in Sources */,
 				2791E2B6E8AD4B5B9278E80D /* ModelSetupWindowController.swift in Sources */,
 				2AA62147EAEA44BFB348F154 /* ServerManager.swift in Sources */,
+				D5AA0000000000000000AA04 /* ServerArguments.swift in Sources */,
 				B288C09478CD4633B53DB17B /* Settings.swift in Sources */,
 				FF66EE55DD44CC33BB22AA11 /* LaunchAtLoginManager.swift in Sources */,
 				4A02EA65745942FDA8371431 /* SettingsWindowController.swift in Sources */,
