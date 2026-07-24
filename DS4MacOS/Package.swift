@@ -58,6 +58,11 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .testTarget(
+            name: "DS4MacOSTests",
+            dependencies: ["DS4MacOS"],
+            path: "Tests"
         )
     ]
 )
