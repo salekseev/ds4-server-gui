@@ -328,11 +328,12 @@ At the end of the class, after `prefillChunk`:
         set { defaults.set(newValue, forKey: Key.dsparkModelPath) }
     }
 
-    /// --dspark-confidence threshold. Unset/0 reads as the engine default 0.9.
+    /// --dspark-confidence threshold, clamped to 0...1. Unset reads as the
+    /// engine default 0.9; an explicit 0 is preserved (engine diagnostics mode).
     var dsparkConfidence: Double {
         get {
-            let v = defaults.double(forKey: Key.dsparkConfidence)
-            return v > 0 ? min(1.0, v) : 0.9
+            guard let v = defaults.object(forKey: Key.dsparkConfidence) as? Double else { return 0.9 }
+            return min(1.0, max(0.0, v))
         }
         set { defaults.set(min(1.0, max(0.0, newValue)), forKey: Key.dsparkConfidence) }
     }
