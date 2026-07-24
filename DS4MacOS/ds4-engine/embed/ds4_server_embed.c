@@ -2,7 +2,7 @@
  *
  * - Renames the server's main() so the GUI can call it in-process.
  * - DS4_SERVER_TEST_NO_MAIN drops the unit-test main() at the bottom of
- *   ds4_server.c.
+ *   ds4_server.c (defensive; only relevant if DS4_SERVER_TEST is ever defined).
  * - ds4_server_request_stop() lives in this translation unit so it can reach
  *   the file-static g_stop_requested / g_listen_fd. */
 #define main ds4_server_main
