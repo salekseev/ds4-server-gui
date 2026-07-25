@@ -25,12 +25,12 @@ final class Settings {
         }
         // Fix incorrect default: ctxSize was mistakenly defaulted to 100000 instead
         // of 32768. One-shot: a user may legitimately choose 100000 later.
-        if !newD.bool(forKey: "ctxSize100kResetDone") {
+        if !newD.bool(forKey: Key.ctxSize100kResetDone) {
             if newD.integer(forKey: Key.ctxSize) == 100000 {
                 newD.set(32768, forKey: Key.ctxSize)
                 migrated = true
             }
-            newD.set(true, forKey: "ctxSize100kResetDone")
+            newD.set(true, forKey: Key.ctxSize100kResetDone)
         }
         if migrated { newD.synchronize() }
     }
@@ -40,6 +40,7 @@ final class Settings {
         static let port             = "port"
         static let host             = "host"
         static let ctxSize          = "ctxSize"
+        static let ctxSize100kResetDone = "ctxSize100kResetDone"
         static let enableDiskKV     = "enableDiskKV"
         static let kvDiskDir        = "kvDiskDir"
         static let kvDiskSpaceMB    = "kvDiskSpaceMB"

@@ -35,6 +35,12 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
 
     private let W: CGFloat = 520
 
+    /// URLs from NSOpenPanel that haven't been committed to a bookmark yet.
+    /// Browsing writes here; only saveValues() (Apply) turns these into
+    /// persisted security-scoped bookmarks, so a Cancel after browsing can't
+    /// clobber the bookmark for whatever path is still actually applied.
+    private var pendingBookmarkURLs: [String: URL] = [:]
+
     init() {
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: W, height: 700),
@@ -485,7 +491,11 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
 
     private func saveValues() {
         let s = Settings.shared
-        s.modelPath           = modelPathField.stringValue.trimmingCharacters(in: .whitespaces)
+        let modelPath  = modelPathField.stringValue.trimmingCharacters(in: .whitespaces)
+        let dsparkPath = dsparkPathField.stringValue.trimmingCharacters(in: .whitespaces)
+        let kvDir      = kvDirField.stringValue.trimmingCharacters(in: .whitespaces)
+
+        s.modelPath           = modelPath
         s.port                = Int(portField.stringValue) ?? 8000
         s.host                = hostField.stringValue.trimmingCharacters(in: .whitespaces)
         s.enableCORS          = corsCheck.state == .on
@@ -497,13 +507,30 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         s.threads             = Int(threadsField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
         s.prefillChunk        = Int(prefillChunkField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
         s.enableDSpark        = dsparkCheck.state == .on
-        s.dsparkModelPath     = dsparkPathField.stringValue.trimmingCharacters(in: .whitespaces)
+        s.dsparkModelPath     = dsparkPath
         s.dsparkConfidence    = Double(dsparkConfidenceField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0.9
         s.defaultMaxTokens    = Int(maxTokensField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0
         s.enableDiskKV        = diskKVCheck.state == .on
-        s.kvDiskDir           = kvDirField.stringValue.trimmingCharacters(in: .whitespaces)
+        s.kvDiskDir           = kvDir
         s.kvDiskSpaceMB       = Int(kvSizeField.stringValue) ?? 8192
         LaunchAtLoginManager.shared.setEnabled(launchAtLoginCheck.state == .on)
+
+        // Only now — on Apply — do freshly-browsed URLs become persisted
+        // bookmarks, and only if the field still holds the path that was
+        // browsed (guards against stale pending state from an edited/cleared
+        // field). An emptied field drops any existing bookmark for that key.
+        commitBookmark(forKey: BookmarkStore.modelKey, path: modelPath)
+        commitBookmark(forKey: BookmarkStore.dsparkKey, path: dsparkPath)
+        commitBookmark(forKey: BookmarkStore.kvDirKey, path: kvDir)
+        pendingBookmarkURLs.removeAll()
+    }
+
+    private func commitBookmark(forKey key: String, path: String) {
+        if path.isEmpty {
+            BookmarkStore.clear(forKey: key)
+        } else if let url = pendingBookmarkURLs[key], url.path == path {
+            BookmarkStore.save(url: url, forKey: key)
+        }
     }
 
     // MARK: - Actions
@@ -515,7 +542,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.allowsMultipleSelection = false
         guard panel.runModal() == .OK, let url = panel.url else { return }
         modelPathField.stringValue = url.path
-        BookmarkStore.save(url: url, forKey: BookmarkStore.modelKey)
+        pendingBookmarkURLs[BookmarkStore.modelKey] = url
     }
 
     @objc private func browseKVClicked() {
@@ -525,7 +552,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.canCreateDirectories = true
         guard panel.runModal() == .OK, let url = panel.url else { return }
         kvDirField.stringValue = url.path
-        BookmarkStore.save(url: url, forKey: BookmarkStore.kvDirKey)
+        pendingBookmarkURLs[BookmarkStore.kvDirKey] = url
     }
 
     @objc private func browseDSparkClicked() {
@@ -535,7 +562,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.allowsMultipleSelection = false
         guard panel.runModal() == .OK, let url = panel.url else { return }
         dsparkPathField.stringValue = url.path
-        BookmarkStore.save(url: url, forKey: BookmarkStore.dsparkKey)
+        pendingBookmarkURLs[BookmarkStore.dsparkKey] = url
     }
 
     // DSpark and SSD streaming are mutually exclusive (engine refuses --mtp + --ssd-streaming)
@@ -552,6 +579,9 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @objc private func applyClicked() { saveValues(); close(); onApply?() }
-    @objc private func cancelClicked() { close() }
-    func windowShouldClose(_ sender: NSWindow) -> Bool { true }
+    @objc private func cancelClicked() { pendingBookmarkURLs.removeAll(); close() }
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        pendingBookmarkURLs.removeAll()
+        return true
+    }
 }
