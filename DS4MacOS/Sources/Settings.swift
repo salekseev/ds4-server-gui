@@ -13,7 +13,7 @@ final class Settings {
     private func migrateIfNeeded() {
         guard let newD = UserDefaults(suiteName: Settings.suiteName) else { return }
         let keys = ["modelPath", "port", "host", "ctxSize", "enableDiskKV",
-                    "kvDiskDir", "kvDiskSpaceMB", "enableCORS", "noThink", "powerPercent"]
+                    "kvDiskDir", "kvDiskSpaceMB", "enableCORS", "powerPercent"]
         // Migrate from UserDefaults.standard (old bundle ID suite is unsafe to access, read from standard)
         var migrated = false
         for key in keys {
@@ -45,7 +45,6 @@ final class Settings {
         static let kvDiskDir        = "kvDiskDir"
         static let kvDiskSpaceMB    = "kvDiskSpaceMB"
         static let enableCORS       = "enableCORS"
-        static let noThink          = "noThink"
         static let powerPercent     = "powerPercent"
         static let enableSSDStreaming   = "enableSSDStreaming"
         static let ssdStreamingCacheGB  = "ssdStreamingCacheGB"
@@ -96,11 +95,6 @@ final class Settings {
     var enableCORS: Bool {
         get { defaults.bool(forKey: Key.enableCORS) }
         set { defaults.set(newValue, forKey: Key.enableCORS) }
-    }
-
-    var noThink: Bool {
-        get { defaults.bool(forKey: Key.noThink) }
-        set { defaults.set(newValue, forKey: Key.noThink) }
     }
 
     var powerPercent: Int {
