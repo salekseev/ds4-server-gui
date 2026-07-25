@@ -12,4 +12,9 @@ int ds4_server_main(int argc, char **argv);
 // Thread-safe; may be called from any thread.
 void ds4_server_request_stop(void);
 
+// Clear the stop state left behind by a previous run so ds4_server_main can
+// be invoked again in the same process. Call before each start, and only
+// when no previous ds4_server_main is still running.
+void ds4_server_reset_stop(void);
+
 #endif
