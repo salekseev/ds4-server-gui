@@ -50,6 +50,22 @@ The built app will be at:
 DS4MacOS/build/Build/Products/Release/ds4-server-gui.app
 ```
 
+### Code signing
+
+By default the app builds ad-hoc (`CODE_SIGN_STYLE = Manual`, `CODE_SIGN_IDENTITY = -`),
+so a fresh clone or CI builds with zero setup — no Apple Developer account required.
+Launch-at-Login is automatically disabled by the app on ad-hoc builds, since it requires
+a real signing team.
+
+To sign with your own team instead, create `DS4MacOS/Config/Signing.local.xcconfig`
+(gitignored) with:
+
+```
+CODE_SIGN_STYLE = Automatic
+CODE_SIGN_IDENTITY = Apple Development
+DEVELOPMENT_TEAM = ABC1234567
+```
+
 ## Usage
 
 Launch `ds4-server-gui.app`. On first launch you will be prompted to select a `.gguf` model file.

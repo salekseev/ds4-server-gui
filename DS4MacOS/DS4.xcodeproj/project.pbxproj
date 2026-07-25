@@ -54,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		02EB5B01564440EDAAE359FD /* DS4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DS4.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5AA0000000000000000AA05 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Signing.xcconfig; path = "Config/Signing.xcconfig"; sourceTree = SOURCE_ROOT; };
 		0890C94401074343A4BB4E3A /* rax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rax.h; path = "ds4-engine/upstream/rax.h"; sourceTree = SOURCE_ROOT; };
 		0DE4CF016D7A4CE8BAB47C63 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = Sources/main.swift; sourceTree = SOURCE_ROOT; };
 		0F056445687C41AC84393A63 /* ds4_help.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ds4_help.c; path = "ds4-engine/upstream/ds4_help.c"; sourceTree = SOURCE_ROOT; };
@@ -141,6 +142,7 @@
 				DED4149CB5D14215936F1BB2 /* Sources */,
 				13376AD52D4C4F04B853F2C9 /* ds4-engine */,
 				15FDB311E18F4E57B4067171 /* Resources */,
+				D5AA0000000000000000AA05 /* Signing.xcconfig */,
 				81F85945C16F490C9F091E6F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -338,17 +340,15 @@
 /* Begin XCBuildConfiguration section */
 		3DF2FBC88C90444E941750F8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5AA0000000000000000AA05 /* Signing.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = DS4MacOS.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 2FLRSSAJ72;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DS4_SERVER_TEST_NO_MAIN=1",
@@ -427,17 +427,15 @@
 		};
 		841D68F81B61471AB6EE80DF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5AA0000000000000000AA05 /* Signing.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = DS4MacOS.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 2FLRSSAJ72;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DS4_SERVER_TEST_NO_MAIN=1",

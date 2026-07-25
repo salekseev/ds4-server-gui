@@ -1,0 +1,13 @@
+// Code signing defaults: ad-hoc, so fresh clones and CI build with zero setup.
+// (Launch-at-Login is auto-disabled by the app on ad-hoc builds.)
+//
+// To sign with your own team, create Signing.local.xcconfig next to this file
+// (gitignored) containing e.g.:
+//   CODE_SIGN_STYLE = Automatic
+//   CODE_SIGN_IDENTITY = Apple Development
+//   DEVELOPMENT_TEAM = ABC1234567
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = -
+DEVELOPMENT_TEAM =
+
+#include? "Signing.local.xcconfig"
