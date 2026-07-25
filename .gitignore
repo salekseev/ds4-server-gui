@@ -38,3 +38,4 @@ Signing.local.xcconfig
 # ===== Logs =====
 *.log
 .claude/
+scripts/bench-results/
