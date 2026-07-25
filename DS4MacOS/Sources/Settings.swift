@@ -23,11 +23,14 @@ final class Settings {
                 migrated = true
             }
         }
-        // Fix incorrect default: ctxSize was mistakenly defaulted to 100000 instead of 32768.
-        // Reset silently if the user never changed it from that bad default.
-        if newD.integer(forKey: Key.ctxSize) == 100000 {
-            newD.set(32768, forKey: Key.ctxSize)
-            migrated = true
+        // Fix incorrect default: ctxSize was mistakenly defaulted to 100000 instead
+        // of 32768. One-shot: a user may legitimately choose 100000 later.
+        if !newD.bool(forKey: "ctxSize100kResetDone") {
+            if newD.integer(forKey: Key.ctxSize) == 100000 {
+                newD.set(32768, forKey: Key.ctxSize)
+                migrated = true
+            }
+            newD.set(true, forKey: "ctxSize100kResetDone")
         }
         if migrated { newD.synchronize() }
     }
