@@ -39,6 +39,14 @@ class ServerManager {
         default: return
         }
 
+        // A previous run may still be draining. Starting now would be unsafe:
+        // ds4_server_reset_stop() below would un-stop it, and two engine
+        // instances would share process-global state.
+        if let old = serverThread, !old.isFinished {
+            LogWindowController.shared.append("[WARN] Previous server instance is still shutting down; retry in a moment.\n")
+            return
+        }
+
         let settings = Settings.shared
         let path = settings.modelPath
         // Metadata (stat) succeeds under the sandbox even when actual read access
@@ -103,6 +111,11 @@ class ServerManager {
         }
         #endif
 
+        // Clear the stop flag a previous run's shutdown left behind; without
+        // this, every engine run after the first drains and exits immediately.
+        // Safe here: the guard above proved no previous run is still alive.
+        ds4_server_reset_stop()
+
         let thread = Thread {
             let cArgs = args.map { strdup($0) }
             defer { cArgs.forEach { free($0) } }
@@ -145,8 +158,9 @@ class ServerManager {
     }
 
     func stop() {
+        // Keep serverThread: start() uses it to detect a still-draining run.
+        // The thread's exit handler clears it.
         isRunning = false
-        serverThread = nil
         ds4_server_request_stop()
         status = .stopped
         LogWindowController.shared.append("[INFO] Server stopped.\n")
@@ -155,18 +169,28 @@ class ServerManager {
     func restart() {
         let oldThread = serverThread
         isRunning = false
-        serverThread = nil
         ds4_server_request_stop()
         status = .stopped
         LogWindowController.shared.append("[INFO] Restarting server...\n")
 
         DispatchQueue.global().async { [weak self] in
+            // Wait for the previous engine run to fully exit; overlapping runs
+            // share process-global engine state and must never coexist.
             var waited = 0
-            while let t = oldThread, !t.isFinished, waited < 50 {
+            while let t = oldThread, !t.isFinished, waited < 600 {
                 Thread.sleep(forTimeInterval: 0.1)
                 waited += 1
             }
-            DispatchQueue.main.async { self?.start() }
+            DispatchQueue.main.async {
+                guard let self else { return }
+                if let t = oldThread, !t.isFinished {
+                    let msg = "Previous server instance did not shut down within 60s; not restarting."
+                    self.status = .error(msg)
+                    LogWindowController.shared.append("[ERROR] \(msg)\n")
+                    return
+                }
+                self.start()
+            }
         }
     }
 

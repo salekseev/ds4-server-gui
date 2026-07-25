@@ -20,3 +20,14 @@ void ds4_server_request_stop(void) {
         close(fd);
     }
 }
+
+/* Reset the cross-run stop state. ds4_server_main can run more than once in
+ * this process (the GUI restarts the server in-place), but the file-statics
+ * survive a previous run's ds4_server_request_stop() — without this reset
+ * every later run drains and exits immediately after reaching "listening".
+ * Must be called before ds4_server_main, never while a previous run is
+ * still shutting down (resetting the flag would un-stop it). */
+void ds4_server_reset_stop(void) {
+    g_stop_requested = 0;
+    g_listen_fd = -1;
+}
