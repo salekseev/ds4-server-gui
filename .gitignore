@@ -28,6 +28,7 @@ DS4MacOS/build/
 *.mobileprovision
 *.certSigningRequest
 *.p12
+Signing.local.xcconfig
 
 # ===== Model Files (large binary, should not be committed) =====
 *.gguf
