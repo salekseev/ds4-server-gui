@@ -2,11 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Debug build: 不开启 Sandbox，方便本地开发和测试 -->
+    <!-- Debug build: sandbox disabled for easier local development and testing -->
     <key>com.apple.security.get-task-allow</key>
     <true/>
 
-    <!-- 文件访问：security-scoped bookmarks，跨重启保留用户选择的模型/DSpark/KV 路径访问权限 -->
+    <!-- File access: security-scoped bookmarks keep user-selected model/DSpark/KV paths readable across relaunches -->
     <key>com.apple.security.files.bookmarks.app-scope</key>
     <true/>
 </dict>

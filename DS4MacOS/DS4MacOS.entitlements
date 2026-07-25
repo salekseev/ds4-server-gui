@@ -2,27 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Mac App Store 强制要求开启 App Sandbox -->
+    <!-- App Sandbox is mandatory for Mac App Store distribution -->
     <key>com.apple.security.app-sandbox</key>
     <true/>
 
-    <!-- 网络：作为服务器监听端口（本地 LLM API 服务） -->
+    <!-- Network: listen on a port as a server (local LLM API service) -->
     <key>com.apple.security.network.server</key>
     <true/>
 
-    <!-- 网络：下载模型文件需要访问外网 -->
+    <!-- Network: outbound access for downloading model files -->
     <key>com.apple.security.network.client</key>
     <true/>
 
-    <!-- 文件访问：用户选择的模型文件（通过 NSOpenPanel/NSSavePanel 授权） -->
+    <!-- File access: user-selected model files (granted via NSOpenPanel/NSSavePanel) -->
     <key>com.apple.security.files.user-selected.read-write</key>
     <true/>
 
-    <!-- 文件访问：KV 缓存目录（~/.ds4/kvcache，需要 Downloads 或 bookmarks） -->
+    <!-- File access: KV cache directory (~/.ds4/kvcache; needs Downloads or bookmarks) -->
     <key>com.apple.security.files.downloads.read-write</key>
     <true/>
 
-    <!-- 文件访问：security-scoped bookmarks，跨重启保留用户选择的模型/DSpark/KV 路径访问权限 -->
+    <!-- File access: security-scoped bookmarks keep user-selected model/DSpark/KV paths readable across relaunches -->
     <key>com.apple.security.files.bookmarks.app-scope</key>
     <true/>
 </dict>

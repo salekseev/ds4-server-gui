@@ -2,13 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- App 图标 -->
+    <!-- App icon -->
     <key>CFBundleIconFile</key>
     <string>AppIcon</string>
     <key>CFBundleIconName</key>
     <string>AppIcon</string>
 
-    <!-- App 基本信息 -->
+    <!-- Basic app info -->
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     <key>CFBundleName</key>
@@ -26,15 +26,15 @@
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
 
-    <!-- macOS 版本要求 -->
+    <!-- Minimum macOS version -->
     <key>LSMinimumSystemVersion</key>
     <string>13.0</string>
 
-    <!-- 菜单栏 only app（不显示 Dock 图标） -->
+    <!-- Menu bar-only app (no Dock icon) -->
     <key>LSUIElement</key>
     <true/>
 
-    <!-- 支持的语言 -->
+    <!-- Supported localizations -->
     <key>CFBundleLocalizations</key>
     <array>
         <string>en</string>
@@ -45,11 +45,11 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
 
-    <!-- App Store 隐私说明（必须，未使用则留空数组） -->
+    <!-- App Store copyright notice -->
     <key>NSHumanReadableCopyright</key>
     <string>Copyright © 2024 iopanda. All rights reserved.</string>
 
-    <!-- 网络访问权限说明（App Store 审核要求） -->
+    <!-- Network access policy (App Store review requirement) -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
