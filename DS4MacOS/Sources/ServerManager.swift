@@ -41,10 +41,12 @@ class ServerManager {
 
         let settings = Settings.shared
         let path = settings.modelPath
-        guard !path.isEmpty,
-              FileManager.default.fileExists(atPath: path),
-              (try? FileManager.default.attributesOfItem(atPath: path)[.size] as? Int64 ?? 0) ?? 0 > 1_048_576
-        else {
+        // Metadata (stat) succeeds under the sandbox even when actual read access
+        // has been denied (e.g. a security-scoped bookmark that failed to resolve).
+        // The in-process engine's open() would then be denied and upstream's
+        // die() calls exit(1), killing the whole app with no chance to intercept
+        // it — so we must prove data readability up front, not just existence.
+        guard Self.readableFileSize(atPath: path) > 1_048_576 else {
             let msg = L("server.error.model_invalid", path)
             status = .error(msg)
             LogWindowController.shared.append("[ERROR] \(msg)\n")
@@ -64,9 +66,7 @@ class ServerManager {
         // (SSD streaming disables DSpark — see buildServerArgs).
         if settings.enableDSpark && !settings.enableSSDStreaming {
             let dsparkPath = settings.dsparkModelPath
-            let dsparkSize = (try? FileManager.default
-                .attributesOfItem(atPath: dsparkPath)[.size] as? Int64 ?? 0) ?? 0
-            if dsparkPath.isEmpty || dsparkSize <= 1_048_576 {
+            if Self.readableFileSize(atPath: dsparkPath) <= 1_048_576 {
                 let msg = L("server.error.dspark_invalid", dsparkPath)
                 status = .error(msg)
                 LogWindowController.shared.append("[ERROR] \(msg)\n")
@@ -168,6 +168,19 @@ class ServerManager {
             }
             DispatchQueue.main.async { self?.start() }
         }
+    }
+
+    // MARK: - Readability Validation
+
+    /// Opens the file for reading and seeks to the end to obtain its size.
+    /// Unlike stat/metadata (FileManager.attributesOfItem, fileExists), this
+    /// actually exercises file-read-data access, which is what the sandbox
+    /// gates and what the in-process engine needs when it later open()s the
+    /// path. Returns -1 if the path is empty or cannot be opened for reading.
+    private static func readableFileSize(atPath path: String) -> Int64 {
+        guard !path.isEmpty, let fh = FileHandle(forReadingAtPath: path) else { return -1 }
+        defer { try? fh.close() }
+        return Int64((try? fh.seekToEnd()) ?? 0)
     }
 
     // MARK: - Metal Shaders Directory

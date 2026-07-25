@@ -5,5 +5,9 @@
     <!-- Debug build: 不开启 Sandbox，方便本地开发和测试 -->
     <key>com.apple.security.get-task-allow</key>
     <true/>
+
+    <!-- 文件访问：security-scoped bookmarks，跨重启保留用户选择的模型/DSpark/KV 路径访问权限 -->
+    <key>com.apple.security.files.bookmarks.app-scope</key>
+    <true/>
 </dict>
 </plist>

@@ -95,6 +95,7 @@ final class ModelSetupWindowController: NSWindowController, NSWindowDelegate {
         panel.allowedContentTypes = []
         panel.begin { [weak self] response in
             guard response == .OK, let url = panel.url else { return }
+            BookmarkStore.save(url: url, forKey: BookmarkStore.modelKey)
             self?.finish(with: url.path)
         }
     }

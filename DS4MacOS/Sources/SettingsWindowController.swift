@@ -515,6 +515,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.allowsMultipleSelection = false
         guard panel.runModal() == .OK, let url = panel.url else { return }
         modelPathField.stringValue = url.path
+        BookmarkStore.save(url: url, forKey: BookmarkStore.modelKey)
     }
 
     @objc private func browseKVClicked() {
@@ -524,6 +525,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.canCreateDirectories = true
         guard panel.runModal() == .OK, let url = panel.url else { return }
         kvDirField.stringValue = url.path
+        BookmarkStore.save(url: url, forKey: BookmarkStore.kvDirKey)
     }
 
     @objc private func browseDSparkClicked() {
@@ -533,6 +535,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         panel.allowsMultipleSelection = false
         guard panel.runModal() == .OK, let url = panel.url else { return }
         dsparkPathField.stringValue = url.path
+        BookmarkStore.save(url: url, forKey: BookmarkStore.dsparkKey)
     }
 
     // DSpark and SSD streaming are mutually exclusive (engine refuses --mtp + --ssd-streaming)

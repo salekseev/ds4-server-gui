@@ -15,6 +15,7 @@ DerivedData/
 # ===== Swift Package Manager =====
 DS4MacOS/.build/
 DS4MacOS/build/
+DS4MacOS/build-verify/
 .swiftpm/
 
 # ===== Build Artifacts =====

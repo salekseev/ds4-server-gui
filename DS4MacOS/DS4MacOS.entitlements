@@ -21,5 +21,9 @@
     <!-- 文件访问：KV 缓存目录（~/.ds4/kvcache，需要 Downloads 或 bookmarks） -->
     <key>com.apple.security.files.downloads.read-write</key>
     <true/>
+
+    <!-- 文件访问：security-scoped bookmarks，跨重启保留用户选择的模型/DSpark/KV 路径访问权限 -->
+    <key>com.apple.security.files.bookmarks.app-scope</key>
+    <true/>
 </dict>
 </plist>

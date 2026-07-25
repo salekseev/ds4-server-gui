@@ -17,6 +17,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func setup() {
         guard serverManager == nil else { return }
+        // Must run before the server auto-starts: restores security-scoped
+        // access to previously user-selected model/DSpark/KV paths, which the
+        // sandbox otherwise revokes when NSOpenPanel's process-lifetime grant
+        // expires across relaunches.
+        BookmarkStore.restoreAll()
         serverManager = ServerManager()
         serverManager.onStatusChange = { [weak self] in
             DispatchQueue.main.async { self?.updateMenuIcon() }
