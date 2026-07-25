@@ -58,7 +58,6 @@
 "settings.checkbox.cors_short" = "允許瀏覽器存取（CORS）";
 "settings.checkbox.launch_at_login_short" = "登录时自动啟動 DS4 Server";
 "settings.checkbox.launch_at_login" = "开机自动啟動";
-"settings.checkbox.nothink_short" = "仅直接回答，停用深度思考";
 "settings.checkbox.disk_kv_short" = "启用工作階段快取（建議）";
 "settings.checkbox.ssd_short" = "省記憶體模式 — 从 SSD 流式載入模型";
 "settings.checkbox.ssd_streaming" = "启用 SSD 流式載入（節省顯存，速度略慢）";

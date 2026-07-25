@@ -16,7 +16,6 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
 
     // Performance tab
     private var ctxField: NSTextField!
-    private var noThinkCheck: NSButton!
     private var powerSlider: NSSlider!
     private var powerLabel: NSTextField!
     private var ssdStreamingCheck: NSButton!
@@ -199,7 +198,6 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
                              control: ctxField,
                              hint: nil)
         let ctxNote = makeNote(L("settings.hint.ctx"))
-        noThinkCheck = makeCheckbox(L("settings.checkbox.nothink_short"))
 
         maxTokensField = makeField(placeholder: "393216")
         maxTokensField.translatesAutoresizingMaskIntoConstraints = false
@@ -207,7 +205,7 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         let tokensRow = formRow(label: L("settings.label.max_tokens"),
                                 control: maxTokensField,
                                 hint: L("settings.hint.max_tokens"))
-        let ctxStack = vstack([ctxRow, ctxNote, tokensRow, noThinkCheck], spacing: 8)
+        let ctxStack = vstack([ctxRow, ctxNote, tokensRow], spacing: 8)
         ctxBox.contentView?.addSubview(ctxStack)
         pin(ctxStack, to: ctxBox.contentView!, insets: NSEdgeInsets(top: 8, left: 12, bottom: 12, right: 12))
 
@@ -470,7 +468,6 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         corsCheck.state               = s.enableCORS ? .on : .off
         launchAtLoginCheck.state      = (SMAppService.mainApp.status == .enabled) ? .on : .off
         ctxField.stringValue          = String(s.ctxSize)
-        noThinkCheck.state            = s.noThink ? .on : .off
         powerSlider.doubleValue       = Double(s.powerPercent)
         powerLabel.stringValue        = "\(s.powerPercent)%"
         ssdStreamingCheck.state       = s.enableSSDStreaming ? .on : .off
@@ -500,7 +497,6 @@ final class SettingsWindowController: NSWindowController, NSWindowDelegate {
         s.host                = hostField.stringValue.trimmingCharacters(in: .whitespaces)
         s.enableCORS          = corsCheck.state == .on
         s.ctxSize             = Int(ctxField.stringValue) ?? 32768
-        s.noThink             = noThinkCheck.state == .on
         s.powerPercent        = Int(powerSlider.doubleValue)
         s.enableSSDStreaming   = ssdStreamingCheck.state == .on
         s.ssdStreamingCacheGB = Int(ssdCacheField.stringValue.trimmingCharacters(in: .whitespaces)) ?? 0

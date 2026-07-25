@@ -72,7 +72,6 @@
 "settings.checkbox.cors_short" = "Allow browser access (CORS)";
 "settings.checkbox.launch_at_login_short" = "Launch DS4 Server at login";
 "settings.checkbox.launch_at_login" = "Launch at Login";
-"settings.checkbox.nothink_short" = "Direct answers only — disable extended thinking";
 "settings.checkbox.disk_kv_short" = "Enable session cache (recommended)";
 "settings.checkbox.ssd_short" = "Low-memory mode — stream model from SSD";
 "settings.checkbox.ssd_streaming" = "Enable SSD Streaming (saves GPU memory, slower)";
