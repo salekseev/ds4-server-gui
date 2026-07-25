@@ -50,7 +50,7 @@ let package = Package(
                 .linkedLibrary("pthread"),
             ]
         ),
-        // Swift 菜单栏应用
+        // Swift menu bar app
         .executableTarget(
             name: "DS4MacOS",
             dependencies: ["ds4engine"],

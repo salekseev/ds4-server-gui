@@ -3,12 +3,13 @@
 
 #include <stdint.h>
 
-// ds4_server_main 就是 ds4-server 的 main()，被宏重命名了
-// 从 Swift 侧调用：DS4Engine.ds4_server_main(argc, argv)
+// ds4_server_main is ds4-server's main(), renamed via macro.
+// Called from Swift as: ds4_server_main(argc, argv)
 int ds4_server_main(int argc, char **argv);
 
-// 请求正在运行的 ds4_server_main 优雅退出（等价于发送 SIGINT）
-// 线程安全，可从任意线程调用
+// Request a graceful shutdown of a running ds4_server_main (equivalent to
+// sending SIGINT, without affecting the rest of the process).
+// Thread-safe; may be called from any thread.
 void ds4_server_request_stop(void);
 
 #endif
